@@ -1,7 +1,7 @@
 OpenPipe Arduino Library
 ========================
 
-Arduino Library for OpenPipe Breakout.
+Arduino Library for [OpenPipe Breakout](http://openpipe.cc/products/openpipe-breakout/).
 
 For instaling the library download the latest version from [here](https://github.com/openpipelabs/OpenPipeLibrary/archive/master.zip)
 and follow the instructions from [here](http://arduino.cc/en/Guide/Libraries).
