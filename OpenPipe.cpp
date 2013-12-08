@@ -27,7 +27,10 @@ void OpenPipeClass::power(char vcc_pin, char gnd_pin){
   
   pinMode(gnd_pin, OUTPUT);
   pinMode(vcc_pin, OUTPUT);
+
   digitalWrite(gnd_pin, LOW);
+  digitalWrite(vcc_pin, LOW);
+  delay(500);
   digitalWrite(vcc_pin, HIGH);
 
 }
