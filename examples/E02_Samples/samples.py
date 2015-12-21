@@ -274,15 +274,15 @@ typedef struct{
 
 
 if BITS>8:
-	sample_type="prog_int16_t"
+	sample_type="int16_t"
 else:
-	sample_type="prog_uint8_t"
+	sample_type="uint8_t"
 	
 for item in generated:
 	#print item[0]
 	for sample in item[1]:
 		#print sample[0]
-		output+="PROGMEM %s %s [] = {" % (sample_type,sample[0])
+		output+="const PROGMEM %s %s [] = {" % (sample_type,sample[0])
 		for value in sample[2]:
 			output+=str(value)+","
 		output+="};\r\n"

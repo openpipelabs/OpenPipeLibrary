@@ -32,8 +32,7 @@
 
 // Select here which MIDI instrument to use
 // http://en.wikipedia.org/wiki/General_MIDI
- #define MIDI_INSTRUMENT 66 // Tenor Sax
-
+#define MIDI_INSTRUMENT 66 // Tenor Sax
 
 // Global variables
 unsigned long fingers, previous_fingers;
@@ -41,17 +40,18 @@ unsigned char previous_note;
 char playing;
 
 void setup(){
-  
+
   // OpenPipe setup
   OpenPipe.power(A2, A3); // VCC PIN in A2 and GND PIN in A3
   OpenPipe.config();
   OpenPipe.setFingering(FINGERING);
 
   // MIDI setup
+  MIDI_CREATE_DEFAULT_INSTANCE();
   MIDI.begin(0);
   MIDI.sendProgramChange(MIDI_INSTRUMENT,1); // Select MIDI instrument
-  //Serial.begin(115200) //Use this line for Hairless MIDI<->Serial Bridge
-  
+  Serial.begin(115200); //Use this line for Hairless MIDI<->Serial Bridge
+
   // Variables initialization
   fingers=0;
   previous_fingers=0xFF;
@@ -60,14 +60,14 @@ void setup(){
 }
 
 void loop(){
-  
+
   // Read OpenPipe fingers
   fingers=OpenPipe.readFingers();
 
   // If fingers have changed...
   if (fingers!=previous_fingers){
     previous_fingers=fingers;
-    
+
     // Check the low right thumb sensor
     if (OpenPipe.isON()){
       playing=true;
@@ -82,7 +82,7 @@ void loop(){
       if (playing){
          MIDI.sendNoteOff(OpenPipe.note,0,1);   // Stop the note
          playing = false;
-       } 
+       }
     }
   }
 }

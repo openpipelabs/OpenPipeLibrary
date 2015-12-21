@@ -28,6 +28,7 @@ void setup(){
   // OpenPipe setup
   OpenPipe.power(A2, A3); // VCC PIN in A2 and GND PIN in A3
   OpenPipe.config();
+  OpenPipe.setFingering (FINGERING_GAITA_GALEGA);
   
   // variables initialization
   fingers=0;
