@@ -34,10 +34,15 @@
 // http://en.wikipedia.org/wiki/General_MIDI
 #define MIDI_INSTRUMENT 66 // Tenor Sax
 
+// Uncomment the following ine f you want to use Hairless MIDI<->Serial Bridge
+//#define USE_HAIRLESS_BRIDGE
+
 // Global variables
 unsigned long fingers, previous_fingers;
 unsigned char previous_note;
 char playing;
+
+MIDI_CREATE_DEFAULT_INSTANCE();
 
 void setup(){
 
@@ -47,10 +52,15 @@ void setup(){
   OpenPipe.setFingering(FINGERING);
 
   // MIDI setup
-  MIDI_CREATE_DEFAULT_INSTANCE();
   MIDI.begin(0);
-  MIDI.sendProgramChange(MIDI_INSTRUMENT,1); // Select MIDI instrument
+
+#ifdef USE_HAIRLESS_BRIDGE
+  // http://projectgus.github.io/hairless-midiserial/#how_do_i_use_the_arduino_midi_library
   Serial.begin(115200); //Use this line for Hairless MIDI<->Serial Bridge
+#endif
+
+  MIDI.sendProgramChange(MIDI_INSTRUMENT,1); // Select MIDI instrument
+
 
   // Variables initialization
   fingers=0;
