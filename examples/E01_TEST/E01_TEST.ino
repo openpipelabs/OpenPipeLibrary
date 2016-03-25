@@ -7,7 +7,7 @@
  *  BLACK -> A3 (GND) (Grey in old openpipes)
  *  RED -> A2 (VCC) (White in old openpipes)
  *
- *  OpenPipe Labs. 2016
+ *  © OpenPipe Labs. 2016
  *  www.openpipe.cc
  *
  *  This example code is in the public domain.

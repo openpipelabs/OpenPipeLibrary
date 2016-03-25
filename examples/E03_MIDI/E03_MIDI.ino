@@ -13,7 +13,7 @@
  *  -Sparkfun MIDI Shield (https://www.sparkfun.com/products/9595)
  *  -Hairless MIDI<->Serial Bridge (http://projectgus.github.io/hairless-midiserial/)
  *
- *  OpenPipe Labs. 2016
+ *  © OpenPipe Labs. 2016
  *  www.openpipe.cc
  *
  *  This example code is in the public domain.
