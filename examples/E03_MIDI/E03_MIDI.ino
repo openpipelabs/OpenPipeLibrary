@@ -34,7 +34,7 @@
 // http://en.wikipedia.org/wiki/General_MIDI
 #define MIDI_INSTRUMENT 66 // Tenor Sax
 
-// Uncomment the following ine f you want to use Hairless MIDI<->Serial Bridge
+// Uncomment the following line if you want to use Hairless MIDI<->Serial Bridge
 //#define USE_HAIRLESS_BRIDGE
 
 // Global variables
