@@ -24,7 +24,7 @@ void OpenPipeClass::config(void){
 }
 
 void OpenPipeClass::power(char vcc_pin, char gnd_pin){
-  
+
   pinMode(gnd_pin, OUTPUT);
   pinMode(vcc_pin, OUTPUT);
 
@@ -49,8 +49,6 @@ int  OpenPipeClass::readFingers(){
 
   char buffer[8];
   int i=0;
-  unsigned int tmp;
-  
 
   // READ MPR121
   //Serial.print("1");
@@ -58,7 +56,7 @@ int  OpenPipeClass::readFingers(){
   Wire.write((uint8_t)0);
   Wire.requestFrom(0x5A, 2);
   // TODO: UNBLOCK HERE
-  while(Wire.available()){ 
+  while(Wire.available()){
     buffer[i] = Wire.read();
     i++;
     if (i>18) break;
@@ -67,7 +65,7 @@ int  OpenPipeClass::readFingers(){
   //Serial.print("2");
 
   // SORT MPR121 ELECTRODES
-  fingers=   ((buffer[0]&(1<<0))>>0) | 
+  fingers=   ((buffer[0]&(1<<0))>>0) |
     ((buffer[0]&(1<<1))>>0) |
     ((buffer[0]&(1<<2))>>0) |
     ((buffer[0]&(1<<4))>>1) |
@@ -101,7 +99,6 @@ unsigned char OpenPipeClass::fingersToNote(void){
   int i;
   int note=0;
   unsigned long tmp;
-  unsigned long longfingers;
   int base;
 
   base=fingering_table[0];
@@ -111,8 +108,8 @@ unsigned char OpenPipeClass::fingersToNote(void){
     // Seach fingering word (1 on MSB)
     if (tmp&(0x80000000)){
       // Clean MSB
-      tmp&=~(0x80000000);  
-      // Fingering and mask matches? 
+      tmp&=~(0x80000000);
+      // Fingering and mask matches?
       if ( (fingers&(tmp&0xFFFF))==(tmp>>16)){
         //Serial.print("POSITION FOUND");
         // Jump over following fingering positions (if they exist)
@@ -152,7 +149,7 @@ void OpenPipeClass::printFingers(void){
 char OpenPipeClass::mpr121Read(unsigned char address)
 {
 
-  char data;
+  char data=0;
 
   Wire.beginTransmission(0x5A);  // begin communication with the MPR121 on I2C address 0x5A
   Wire.write(address);            // sets the register pointer
@@ -174,7 +171,7 @@ char OpenPipeClass::mpr121Read(unsigned char address)
 void OpenPipeClass::mpr121Write(unsigned char address, unsigned char data)
 {
 
-  Wire.beginTransmission(0x5A);  // begin communication with the MPR121 on I2C address 0x5A 
+  Wire.beginTransmission(0x5A);  // begin communication with the MPR121 on I2C address 0x5A
   Wire.write(address);            // sets the register pointer
   Wire.write(data);               // sends data to be stored
   Wire.endTransmission();        // ends communication
@@ -184,7 +181,7 @@ void OpenPipeClass::mpr121Write(unsigned char address, unsigned char data)
 // configure all MPR121 registers as described in AN3944
 void OpenPipeClass::mpr121QuickConfig(void)
 {
-  
+
   // Section A
   // This group controls filtering when data is > baseline.
   mpr121Write(MHD_R, 0x01);
@@ -247,4 +244,3 @@ void OpenPipeClass::mpr121QuickConfig(void)
   mpr121Write(ATO_CFGT, 0xB5);  // Target = 0.9*USL
 
 }
-
