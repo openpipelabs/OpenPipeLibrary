@@ -7,7 +7,7 @@
  *  BLACK -> A3 (GND) (Grey in old openpipes)
  *  RED -> A2 (VCC) (White in old openpipes)
  *
- *  © OpenPipe Labs. 2016
+ *  © OpenPipe Labs. 2017
  *  www.openpipe.cc
  *
  *  This example code is in the public domain.
@@ -24,12 +24,12 @@ void setup(){
   // Serial port setup
   Serial.begin(115200);
   Serial.println("OpenPipe TEST");
-  
+
   // OpenPipe setup
   OpenPipe.power(A2, A3); // VCC PIN in A2 and GND PIN in A3
   OpenPipe.config();
   OpenPipe.setFingering (FINGERING_GAITA_GALEGA);
-  
+
   // variables initialization
   fingers=0;
   previous_fingers=0xFF;

@@ -14,7 +14,7 @@
  *
  *  Connect a speaker to PINs 11 & 12
  *
- *  © OpenPipe Labs. 2016
+ *  © OpenPipe Labs. 2017
  *  www.openpipe.cc
  *
  *  This example code is in the public domain.
