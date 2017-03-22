@@ -20,6 +20,10 @@
  *  This example code is in the public domain.
  */
 
+#ifndef ARDUINO_ARCH_AVR
+  #error “This example only supports boards with an AVR processor.”
+#endif
+
 #include <Wire.h> // Wire library for comunicating with OpenPipe
 #include <OpenPipe.h> // OpenPipe Library
 #include "samples.h"
