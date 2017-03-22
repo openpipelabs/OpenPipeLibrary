@@ -1,6 +1,9 @@
-/*  OpenPipe Breakout samples example
+/*  OpenPipe Breakout samples example for Arduino UNO
  *
  *  Play sampled sounds (44100 Hz @ 8bit) using PWM output.
+ *  NOTE: This example will work with Arduino UNO compatible boards only,
+ *  due to AVR-specific defines.
+ *
  *  Samples are defined in samples.h file, generated using the provided samples.py script
  *
  *  Connect the OpenPipe Breakout wires to Arduino as follows:
@@ -43,7 +46,7 @@
 #endif
 
 #ifdef GHB
-  #define FINGERING FINGERING_GREAT_HIGHLAND_BAGPIPE  
+  #define FINGERING FINGERING_GREAT_HIGHLAND_BAGPIPE
   #define INSTRUMENT INSTRUMENT_GHB
 #endif
 
@@ -77,7 +80,7 @@ void setup(){
   // Serial port setup
   Serial.begin(115200);
   Serial.println("OpenPipe SAMPLES");
-  
+
   // OpenPipe setup
   OpenPipe.power(A2, A3); // VCC PIN in A2 and GND PIN in A3
   OpenPipe.config();
@@ -90,7 +93,7 @@ void setup(){
   // Configure PWM for sound generation
   startPlayback();
 
-  
+
   // Variables initialization
   fingers=0;
   previous_fingers=0xFF;
@@ -106,21 +109,21 @@ void setup(){
 }
 
 void loop(){
-  
+
   // Read OpenPipe fingers
   fingers=OpenPipe.readFingers();
 
   // If fingers have changed...
   if (fingers!=previous_fingers){
     previous_fingers=fingers;
-    
+
     // Print fingers for debug
     OpenPipe.printFingers();
-    
+
     // Check the low right thumb sensor
     if (OpenPipe.isON()){
       playing=1;
-    
+
       //Find which sample to play
       note=OpenPipe.note;
       sample=note_to_sample(note);
@@ -132,7 +135,7 @@ void loop(){
     }else{
       sample=0xFF;
       Serial.println(" SILENCE");
-    }      
+    }
   }
 }
 
@@ -220,33 +223,33 @@ void stopPlayback()
 
 /* PWM AUDIO CODE : This is called at SAMPLE_RATE Hz to load the next sample. */
 ISR(TIMER1_COMPA_vect) {
-  
+
   // STOP SOUND
   if (!(OpenPipe.isON())){
     OCR2A=127;
     return;
   }
-  
+
   // PLAY PREVIOUS SAMPLE IF THE CURRENT ONE IS NOT FOUND
   if (sample==0xFF){
     //OCR2A=0;
     //return;
     sample=previous_sample;
   }
-  
+
   // WAIT FOR THE SAMPLE TO FINISH IN ORDER TO AVOID 'CLICKS'
   if (previous_sample!=sample && sample_index==0){
     previous_sample=sample;
     //sample_index=0;
   }
-  
+
   // LOOP SAMPLE
   if (sample_index==samples_table[previous_sample].len){
     sample_index=0;
   }else{
     sample_index++;
   }
-  
+
 #ifdef ENABLE_DRONE
 
   // LOOP DRONE SAMPLE
@@ -255,7 +258,7 @@ ISR(TIMER1_COMPA_vect) {
   }else{
     drone_index++;
   }
-  
+
   // MIX NOTE AND DRONE SAMPLES
   int16_t out;
   out=0;
@@ -269,4 +272,3 @@ ISR(TIMER1_COMPA_vect) {
 #endif
 
 }
-
