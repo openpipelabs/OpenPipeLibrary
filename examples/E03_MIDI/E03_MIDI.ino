@@ -90,7 +90,7 @@ void loop(){
       }
     }else{
       if (playing){
-         MIDI.sendNoteOff(OpenPipe.note,0,1);   // Stop the note
+         MIDI.sendNoteOff(previous_note,0,1);   // Stop the note
          playing = false;
        }
     }
